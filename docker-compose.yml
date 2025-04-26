@@ -1,23 +1,4 @@
 services:
-    mongo:
-        image: 'mongo:${MONGO_VERSION:-6}'
-        command: --auth --noscripting
-        restart: unless-stopped
-        environment:
-            MONGO_INITDB_DATABASE: '${DB_DATABASE:-binance-api}'
-            MONGO_INITDB_ROOT_USERNAME: '${DB_USERNAME:-binance}'
-            MONGO_INITDB_ROOT_PASSWORD: '${DB_PASSWORD:-secret}'
-        volumes:
-            - 'binance-mongo:/data/db'
-            - 'binance-mongo-config:/data/configdb'
-        networks:
-            - binance
-        ports:
-          - '27017:27017'
-        healthcheck:
-            test: [ "CMD-SHELL", "echo 'db.stats().ok' | mongosh localhost:27017/test --quiet"]
-            start_period: 40s
-
     binance-api:
         build:
             context: ./docker
@@ -48,7 +29,7 @@ services:
                 source: '${HOME}/.npm'
                 target: '/tmp/.npm'
         networks:
-            - binance
+            - wallets
         ports:
           - '7000:7000'
         healthcheck:
@@ -56,11 +37,5 @@ services:
             start_period: 2m
 
 networks:
-    binance:
+    wallets:
         driver: bridge
-
-volumes:
-    binance-mongo:
-        driver: local
-    binance-mongo-config:
-        driver: local

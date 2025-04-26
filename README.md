@@ -42,6 +42,7 @@ This project is designed for server-side use by web developers managing Binance 
     #  Binance Config
     #  (refer to our doc)
     #--------------------------------------------------------------------------
+    APP_ENV=development
     DB_DATABASE=binance-api
     DB_USERNAME=root
     DB_PASSWORD=password
@@ -52,7 +53,6 @@ This project is designed for server-side use by web developers managing Binance 
     BINANCE_LOGFILE='binance.log'
     BINANCE_KEYPATH=
     BINANCE_CRTPATH=
-    BINANCE_ENV=test
     BINANCE_BIND=localhost
     BINANCE_PORT=7000
     ```
